@@ -12,7 +12,7 @@ def df_extract_url(tmp_df, tmp_col):
 # Get domain name from URL and put it in domainname table
 # Regex Source: https://stackoverflow.com/questions/25703360/regular-expression-extract-subdomain-domain
 def df_parse_domainname(tmp_df, tmp_col):
-    tmp_df = tmp_df.withColumn( "domainname", F.regexp_extract(F.col(tmp_col) , r'^(?:http:\/\/|www\.|https:\/\/)([^\/]+)', 1)) 
+    tmp_df = tmp_df.withColumn( "domain_name", F.regexp_extract(F.col(tmp_col) , r'^(?:http:\/\/|www\.|https:\/\/)([^\/]+)', 1)) 
     return tmp_df
 
 # Get the domain name of an email from an email address
