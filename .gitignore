@@ -5,3 +5,5 @@ __pycache__
 data/repos
 data/reddit-stuff
 .ipynb_checkpoints
+derby.log
+metastore_db/
