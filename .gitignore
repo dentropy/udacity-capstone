@@ -2,3 +2,5 @@ files
 env
 out
 __pycache__
+data/repos
+.ipynb_checkpoints
