@@ -3,4 +3,5 @@ env
 out
 __pycache__
 data/repos
+data/reddit-stuff
 .ipynb_checkpoints
