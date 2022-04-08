@@ -1,9 +1,18 @@
 # udacity-capstone
 
 ``` bash
-spark-submit ./index-git.py $GLOB_PATH $OUT_PATH
+rm -rf ./out/DATA*
 
-spark-submit ./index-reddit.py $GLOB_PATH $OUT_PATH
+spark-submit ./index-git.py \
+    --globpath $(pwd)/out/git_out/**/*.json \
+    --outpath $(pwd)/out/DATA_GIT
 
-spark-submit ./integrate-git-and-reddit.py $GIT_OUT $REDDIT_OUT $OUT_PATH
+spark-submit ./index-reddit.py \
+    --inpath  $(pwd)/data/reddit-stuff/xaa \
+    --outpath $(pwd)/out/DATA_REDDIT
+
+spark-submit ./integrate-git-and-reddit.py \
+    --gitin $(pwd)/out/DATA_GIT \
+    --redditin $(pwd)/out/DATA_REDDIT \
+    --outpath $(pwd)/out/DATA_INTEGRATED
 ```
