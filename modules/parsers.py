@@ -6,8 +6,8 @@ import pyspark.sql.functions as F
 #  * Takes a column name to extract url from body of text
 # Regex Source: https://stackoverflow.com/questions/28185064/python-infinite-loop-in-regex-to-match-url
 def df_extract_url(tmp_df, tmp_col):
-    return tmp_df.withColumn("url", F.regexp_extract(F.col(tmp_col), r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))", 0))          
-
+    tmp_df = tmp_df.withColumn("url", F.regexp_extract(F.col(tmp_col), r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))", 0))          
+    return tmp_df
 
 # Get domain name from URL and put it in domainname table
 # Regex Source: https://stackoverflow.com/questions/25703360/regular-expression-extract-subdomain-domain
