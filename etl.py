@@ -5,6 +5,7 @@ import pyspark.sql.types as T
 import modules.parsers as parsers
 import configparser
 import os
+import sys
 
 config = configparser.ConfigParser()
 config.read('dl.cfg')
@@ -15,7 +16,7 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS']['AWS_SECRET_ACCESS_KEY']
 def create_spark_session():
     spark = SparkSession.builder\
                          .config("spark.jars.packages","org.apache.hadoop:hadoop-aws:2.7.3")\
-                         .master("spark://pop-os.localdomain:7077")\
+                         .master("spark://localhost:7077")\
                          .enableHiveSupport()\
                          .getOrCreate()
     return spark
@@ -38,8 +39,10 @@ def process_reddit_data(spark, reddit_data_url, output_url):
     reddit_domains_grouped.write.parquet(output_url, mode="overwrite")
     return reddit_domains_grouped
 
-def join_dataframes(git_domains_grouped, reddit_domains_grouped, output_path):
-    git_domains_grouped = git_domains_grouped.withColumnRenamed("email_domain", "domain_name")
+def join_dataframes(spark, git_data_url, reddit_data_url, output_path):
+    reddit_domains_grouped = spark.read.parquet(reddit_data_url)
+    git_domains_grouped = spark.read.parquet(git_data_url)
+    # git_domains_grouped = git_domains_grouped.withColumnRenamed("email_domain", "domain_name")
     joined_domains = reddit_domains_grouped.alias("reddit")\
       .join(git_domains_grouped.alias("git"), F.col("git.email_domain") == F.col("reddit.domain_name"))
     joined_domains.write.parquet(output_path, mode="overwrite")
@@ -53,16 +56,19 @@ def main():
     git_data_path = "/git-dump/*/*.json"
     # git_data_path = "/git-dump/freeCodeCamp/freeCodeCamp.json" # For Testing
     git_data_url = bucket_url + git_data_path
-    git_domains_grouped = process_git_data(spark, git_data_url, bucket_url + "/git_domains_final.parquet")
+    # git_domains_grouped = process_git_data(spark, git_data_url, bucket_url + "/git_domains_final.parquet")
     
     
     # File is 1.5 Gb will take a couple minutes to load into spark
     reddit_data_path = "/reddit/RC_2018_01_01"
     # reddit_data_path = "/reddit/002.ndjson" # For Testing
     reddit_data_url = bucket_url + reddit_data_path
-    reddit_domains_grouped = process_reddit_data(spark, reddit_data_url , bucket_url + "/reddit_domains_final.parquet")
+    # reddit_domains_grouped = process_reddit_data(spark, reddit_data_url , bucket_url + "/reddit_domains_final.parquet")
     
-    join_dataframes(spark, git_domains_grouped, reddit_domains_grouped, bucket_url + "/joined_domains_final.parquet")
+    join_dataframes(spark, 
+                    bucket_url + "/git_domains_final.parquet",
+                    bucket_url + "/reddit_domains_final.parquet", 
+                    bucket_url + "/joined_domains_final.parquet")
 
     print("All done")
     sys.exit()
