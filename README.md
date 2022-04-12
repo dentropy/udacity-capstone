@@ -1,5 +1,19 @@
 # udacity-capstone
 
+The purpose of this project is to compare two separate datasets, one being reddit comments and the other being git repos. What these datasets have in common is domain names, emails from the github accounts and and and URL's that can be extracted from the comments themselves.
+
+## Requirements
+
+* git
+* python3
+  * packages
+    * pyspark
+    * pandas
+    * jupyterlab
+* Spark
+* aws cli
+  * S3 Bucket with READ/WRITE permissions
+
 ## Getting the datasets
 
 **Reddit data**
@@ -16,7 +30,7 @@
 * Recursively copy `./out/git_out/` to S3
 
 
-## Copying files to S3
+## Copying datasets to S3
 
 ``` bash
 mybucketname=paul-udacity-capstone
