@@ -20,9 +20,6 @@ def parse_path(repo_url, saving_path, insert_string):
     output_file_path = output_path + "/" + file_name
     return output_path, output_file_path
 
-def get_repo_url(repo_path):
-    return repo_path
-
 def get_repo_metadata_remote(repo_url, table_name, saving_path="/tmp/"):
     # Use mergestat to get emails, names, and add in git repo URL as JSON
 
@@ -63,19 +60,7 @@ def get_repo_metadata_path(repo_path, table_name, saving_path="/tmp/"):
     return output_file_path
 
 
-def send_file_to_s3():
-    # TODO
-    pass
-
-"""
-authors=False
-commits=False
-
-directory=False
-json=False
-"""
-
-def index_git_repos(path_to_json, tables, method, saving_path="/tmp/", error_path="/tmp/"):
+def index_git_repos(path_to_json, saving_path="/tmp/", error_path="/tmp/"):
     try:
         repos_list = json.load(open(path_to_json))
     except:
