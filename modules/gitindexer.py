@@ -33,7 +33,7 @@ def get_repo_metadata_remote(repo_url, table_name, saving_path="/tmp/"):
     # Export the commits to file system
     
     bashCommand = """
-    mergestat "SELECT COUNT(*), author_name, author_email, '{repo_url}' as remote_url from {table_name}('{repo_url}') GROUP BY author_email" --format json > {output_file_path}""".format(repo_url=repo_url, output_file_path=output_file_path, table_name=table_name)
+    mergestat "SELECT COUNT(*), author_name, author_email, '{repo_url}' as remote_url from {table_name}('{repo_url}') GROUP BY author_email" --format ndjson > {output_file_path}""".format(repo_url=repo_url, output_file_path=output_file_path, table_name=table_name)
     print(bashCommand)
     process = subprocess.run([bashCommand], shell=True, check=True, stdout=subprocess.PIPE).stdout
     return output_file_path
@@ -54,7 +54,7 @@ def get_repo_metadata_path(repo_path, table_name, saving_path="/tmp/"):
     # Export the commits to file system
     
     bashCommand = """
-    mergestat "SELECT COUNT(*) as commits, author_name, author_email, '{repo_url}' as remote_url from {table_name}() GROUP BY author_email" --repo {repo_path} --format json > {output_file_path}""".format(repo_path=repo_path, repo_url=repo_url, output_file_path=output_file_path, table_name=table_name)
+    mergestat "SELECT COUNT(*) as commits, author_name, author_email, '{repo_url}' as remote_url from {table_name}() GROUP BY author_email" --repo {repo_path} --format ndjson > {output_file_path}""".format(repo_path=repo_path, repo_url=repo_url, output_file_path=output_file_path, table_name=table_name)
     print(bashCommand)
     process = subprocess.run([bashCommand], shell=True, check=True, stdout=subprocess.PIPE).stdout
     return output_file_path
@@ -76,14 +76,14 @@ def index_git_repos(path_to_json, saving_path="/tmp/", error_path="/tmp/"):
             # Save data to local path or S3 Bucket
             print("Error on", repo_url)
             print(e)
-            output_path, output_file_path = parse_path(repo_url, error_path)
+            # output_path, output_file_path = parse_path(repo_url, error_path)
             
             # Create path if not exists
-            p = pathlib.Path(output_path)
-            p.mkdir(parents=True, exist_ok=True)
+            # p = pathlib.Path(output_path)
+            # p.mkdir(parents=True, exist_ok=True)
 
-            with open(output_file_path, 'w') as outfile:
-                json.dump({
-                    "repo_url" : repo_url
-                }, outfile)
-            pass
+            # with open(output_file_path, 'w') as outfile:
+            #     json.dump({
+            #         "repo_url" : repo_url
+            #     }, outfile)
+            # pass

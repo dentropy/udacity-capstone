@@ -10,4 +10,7 @@ import glob
 git_paths = glob.glob("../data/cloned-repos/**",)
 for git_path in git_paths:
     print("Indexing", git_path)
-    get_repo_metadata_path(git_path, "commits", "../out/git_out/")
+    try:
+        get_repo_metadata_path(git_path, "commits", "../out/git_out/")
+    except:
+        print("Got an error")

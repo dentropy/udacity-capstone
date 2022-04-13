@@ -1,6 +1,22 @@
 # udacity-capstone
 
-The purpose of this project is to compare two separate datasets, one being reddit comments and the other being git repos. What these datasets have in common is domain names, emails from the github accounts and and and URL's that can be extracted from the comments themselves. The column for domain names can be joined across the reddit and git datasets to find people who have a users that are connected to the same domains.
+The purpose of this project is to develop a ETL pipeline for social media information, in this case reddit comments and git metadata. There are many ways to prase these datasets.
+
+Two datasets were used for this project,
+
+* Reddit comment export from [pushift.io](https://files.pushshift.io/reddit/comments/daily/), specically the RC_2018-01-01 export
+* A custom list of git repos with metadata extracted using a custom script
+
+* Cross dataset comparisons
+  * Join domain name of git email with domain name of URL in reddit comment
+  * Join username from git email with reddit username
+* Inner dataset queries
+  * Reddit
+    * Most comments per user
+    * Most comments per subreddit
+  * Git
+    * Groupby Email Address
+    * Group by email address AND repo
 
 ## Requirements
 
