@@ -7,3 +7,4 @@ data/reddit-stuff
 .ipynb_checkpoints
 derby.log
 metastore_db/
+data/00*

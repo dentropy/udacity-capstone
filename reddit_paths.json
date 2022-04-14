@@ -1,0 +1,17 @@
+{"jsonpaths": [
+       "$.author",
+       "$.body",
+       "$.score",
+       "$.can_gild",
+       "$.controversiality",
+       "$.create_utc",
+       "$.edited",
+       "$.guilded",
+       "$.id",
+       "$.is_submitter",
+       "$.link_id",
+       "$.parent_id",
+       "$.permalink",
+       "$.subreddit"
+    ]
+}

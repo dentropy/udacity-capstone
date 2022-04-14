@@ -1,0 +1,7 @@
+{"jsonpaths": [
+       "$.author_email",
+       "$.author_name",
+       "$.commits",
+       "$.remote_url"
+    ]
+}
