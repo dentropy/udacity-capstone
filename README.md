@@ -1,6 +1,6 @@
 # udacity-capstone
 
-The purpose of this project is to develop a ETL pipeline for social media information, in this case reddit comments and git metadata. There are many ways to prase these datasets.
+The purpose of this project is to develop a ETL pipeline for social media information, in this case reddit comments and git metadata. The unique quality across these datasets are domain names. Git metadata includes email addresses which use a domain name and website URL's can be extracted from reddit comments.
 
 Two datasets were used for this project,
 

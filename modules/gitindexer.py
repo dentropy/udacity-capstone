@@ -69,21 +69,8 @@ def index_git_repos(path_to_json, saving_path="/tmp/", error_path="/tmp/"):
         raise Exception("Your JSON list of git repo URLs is not a raw list")
     for repo_url in repos_list:
         try:
-            print(saving_path)
+            # print(saving_path)
             get_repo_metadata(repo_url, "commits", saving_path)
         except Exception as e:
-            # Log error somewhere
-            # Save data to local path or S3 Bucket
             print("Error on", repo_url)
             print(e)
-            # output_path, output_file_path = parse_path(repo_url, error_path)
-            
-            # Create path if not exists
-            # p = pathlib.Path(output_path)
-            # p.mkdir(parents=True, exist_ok=True)
-
-            # with open(output_file_path, 'w') as outfile:
-            #     json.dump({
-            #         "repo_url" : repo_url
-            #     }, outfile)
-            # pass

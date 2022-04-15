@@ -1,4 +1,4 @@
-GIT_REPOS=`jq -r ".[]" ./git_repos.json`
+GIT_REPOS=`jq -r ".[]" ../data/git_repos.json`
 mkdir ../data
 mkdir ../data/cloned-repos
 cd ../data/cloned-repos
