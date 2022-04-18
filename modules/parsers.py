@@ -58,7 +58,7 @@ def json_glob_to_database(glob_path, sql_conn_string, table_name, sub_df=[]):
                 df2 = df2[sub_df]
             df2.to_sql(name=(table_name + "2"), con=sql_conn_string)
             contact_sql_tables(sql_conn_string, table_name, (table_name + "2"))
-            drop_tables([(table_name + "2")])
+            drop_tables(sql_conn_string, [(table_name + "2")])
         
         
 def drop_tables(psql_conn_string, table_name_list):
@@ -84,6 +84,7 @@ def sql_extract_url(psql_conn_string, table_name, read_text_column_nane, write_t
         print("Table already created")
     insert_line = "INSERT INTO " + table_name + "(" + write_text_column_name + ")" + "\n"
     first_part_regex = "SELECT regexp_matches(" + read_text_column_nane + " , "
+    # Source: https://stackoverflow.com/questions/27653554/regular-expression-for-website-url-with-different-types-using-javascript
     regex = r"""'(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:[/?#]\S*)?'"""
     from_line = "\nFROM " + table_name
 
