@@ -1,12 +1,6 @@
-## TODO
-
-* Data Quality Checks
-* Export JSON of all git remotes to github jist
-* Get SQL database in the cloud, dump everything there
-* Final project writeup
-* Submit
-
 # udacity-capstone
+
+## Desciption
 
 The purpose of this project is to develop a ETL pipeline for social media information, in this case reddit comments and git metadata. The unique quality across these datasets are domain names. Git metadata includes email addresses which use a domain name and website URL's can be extracted from reddit comments.
 
@@ -25,6 +19,19 @@ Two datasets were used for this project,
   * Git
     * Groupby Email Address
     * Group by email address AND repo
+
+## Who is going to use the data model, think of user persona that you think will benefit from this?
+
+There are already startups out there harvesting email addresse from github repositories in order to sell people stuff.[Source](https://news.ycombinator.com/item?id=30977883) Connecting those email addresses with other social media data allows for better valuation of the value that can be extracted from each email address.
+
+For me personally I want to better understand the relationships between individuals and the groups they attach themselves to and how they overlap. For example I find a corperate entity that is capable of using the same domain name for their website as well as their email has a certain level of competence that should be noted.
+
+
+## What are that types of questions this data model can help answer?
+
+* Can we find the same domain name being shared for both email addresses and normal websites
+* Total commits per domain name, total commits per email address, total commits per git organization, most contributors per git organization, most contributors per repo 
+* Can we find people using the same username across email domains as well as reddit accounts?
 
 ## Requirements
 
