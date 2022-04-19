@@ -1,12 +1,6 @@
-## TODO
-
-* Data Quality Checks
-* Export JSON of all git remotes to github jist
-* Get SQL database in the cloud, dump everything there
-* Final project writeup
-* Submit
-
 # udacity-capstone
+
+## Desciption
 
 The purpose of this project is to develop a ETL pipeline for social media information, in this case reddit comments and git metadata. The unique quality across these datasets are domain names. Git metadata includes email addresses which use a domain name and website URL's can be extracted from reddit comments.
 
@@ -25,6 +19,19 @@ Two datasets were used for this project,
   * Git
     * Groupby Email Address
     * Group by email address AND repo
+
+## Who is going to use the data model, think of user persona that you think will benefit from this?
+
+There are already startups out there harvesting email addresse from github repositories in order to sell people stuff.[Source](https://news.ycombinator.com/item?id=30977883) Connecting those email addresses with other social media data allows for better valuation of the value that can be extracted from each email address.
+
+For me personally I want to better understand the relationships between individuals and the groups they attach themselves to and how they overlap. For example I find a corperate entity that is capable of using the same domain name for their website as well as their email has a certain level of competence that should be noted.
+
+
+## What are that types of questions this data model can help answer?
+
+* Can we find the same domain name being shared for both email addresses and normal websites
+* Total commits per domain name, total commits per email address, total commits per git organization, most contributors per git organization, most contributors per repo 
+* Can we find people using the same username across email domains as well as reddit accounts?
 
 ## Requirements
 
@@ -72,6 +79,42 @@ mybucketname=paul-udacity-capstone
 aws s3 cp ./data/cloned-repos s3://$mybucketname/git-dump/RC_2018_01_01
 aws s3 cp ./RC_2018-01-01 s3://$mybucketname/reddit/2018
 ```
+
+## Data Model
+
+**reddit_comments**
+
+| Field Name       | Datatype | Constraint  | Description                               |
+|------------------|----------|-------------|-------------------------------------------|
+| index            | int      | Primary Key | Unique identifier for joins and lookups   |
+| author           | text     | None        | Reddit username of who posted comment     |
+| body             | text     | None        | Contents of text                          |
+| controversiality | int      | None        | Score used to rank comment                |
+| created_utc      | int      | None        | Timestamp when posted                     |
+| edited           | int      | None        | Timestamp when edited                     |
+| id               | text     | None        | Unique ID to relate to other comments     |
+| link_id          | text     | None        | Formatted ID to relate to other comments  |
+| parent_id        | text     | None        | link_id that this comment was replying to |
+| permalink        | text     | None        | path to comment to share                  |
+| subreddit        | text     | None        | Group comment was posted in               |
+| url              | text     | None        | URL extracted from body                   |
+| domain_name      | text     | None        | Domain name extracted from URL            |
+
+
+
+**git_metadata**
+
+| Field Name     | Datatype | Constraint  | Description                             |
+|----------------|----------|-------------|-----------------------------------------|
+| index          | int      | Primary Key | Unique identifier for joins and lookups |
+| author_email   | text     | None        | Email of person who commited to repo    |
+| author_name    | text     | None        | Name of person who commmited to repo    |
+| commits        | int      | None        | Number of commits in this repo          |
+| remote_url     | int      | None        | Remote URL to clone this repo           |
+| email_username | int      | None        | Parsed username from this repo          |
+| email_domain   | text     | None        | Parsed domain name from this repo       |
+
+
 
 ## Reminders
 
