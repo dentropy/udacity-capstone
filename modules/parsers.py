@@ -1,5 +1,6 @@
 import psycopg2
 import pyspark.sql.functions as F
+import pyspark.sql.types as T
 import glob
 import pandas as pd
 # Extract a URL from a string
@@ -25,7 +26,6 @@ def df_parse_email(tmp_df, tmp_col):
     return tmp_df
 
 
-
 def contact_sql_tables(sql_con_string, first_table_name, second_table_name):
     tmp_conn = psycopg2.connect(sql_con_string)
     tmp_cur = tmp_conn.cursor()
@@ -39,7 +39,7 @@ def contact_sql_tables(sql_con_string, first_table_name, second_table_name):
     tmp_cur.execute(concat_tables)
     tmp_conn.commit()
     
-
+    
 def json_glob_to_database(glob_path, sql_conn_string, table_name, sub_df=[]):
     files_list = glob.glob(glob_path)
     if len(files_list) == 1:   

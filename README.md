@@ -80,6 +80,42 @@ aws s3 cp ./data/cloned-repos s3://$mybucketname/git-dump/RC_2018_01_01
 aws s3 cp ./RC_2018-01-01 s3://$mybucketname/reddit/2018
 ```
 
+## Data Model
+
+**reddit_comments**
+
+| Field Name       | Datatype | Constraint  | Description                               |
+|------------------|----------|-------------|-------------------------------------------|
+| index            | int      | Primary Key | Unique identifier for joins and lookups   |
+| author           | text     | None        | Reddit username of who posted comment     |
+| body             | text     | None        | Contents of text                          |
+| controversiality | int      | None        | Score used to rank comment                |
+| created_utc      | int      | None        | Timestamp when posted                     |
+| edited           | int      | None        | Timestamp when edited                     |
+| id               | text     | None        | Unique ID to relate to other comments     |
+| link_id          | text     | None        | Formatted ID to relate to other comments  |
+| parent_id        | text     | None        | link_id that this comment was replying to |
+| permalink        | text     | None        | path to comment to share                  |
+| subreddit        | text     | None        | Group comment was posted in               |
+| url              | text     | None        | URL extracted from body                   |
+| domain_name      | text     | None        | Domain name extracted from URL            |
+
+
+
+**git_metadata**
+
+| Field Name     | Datatype | Constraint  | Description                             |
+|----------------|----------|-------------|-----------------------------------------|
+| index          | int      | Primary Key | Unique identifier for joins and lookups |
+| author_email   | text     | None        | Email of person who commited to repo    |
+| author_name    | text     | None        | Name of person who commmited to repo    |
+| commits        | int      | None        | Number of commits in this repo          |
+| remote_url     | int      | None        | Remote URL to clone this repo           |
+| email_username | int      | None        | Parsed username from this repo          |
+| email_domain   | text     | None        | Parsed domain name from this repo       |
+
+
+
 ## Reminders
 
 * reddit/RC_2018_01_01 is 1.5 Gb
